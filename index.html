@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>ZIATOGEL Winner Generator PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+margin:0;
+padding:30px;
+background:
+radial-gradient(circle at top,#0A2D88,#020611 70%);
+color:white;
+font-family:'Rajdhani',sans-serif;
+}
+
+
+.container{
+max-width:1250px;
+margin:auto;
+}
+
+.header{
+text-align:center;
+margin-bottom:35px;
+}
+
+.header h1{
+font-family:'Orbitron',sans-serif;
+font-size:34px;
+font-weight:900;
+letter-spacing:3px;
+background:
+linear-gradient(90deg,#FFD400,#fff,#00AFFF);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.header p{
+font-size:18px;
+letter-spacing:2px;
+color:#ddd;
+}
+
+
+.grid{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:25px;
+}
+
+
+.card{
+background:
+rgba(255,255,255,.08);
+border:1px solid rgba(0,175,255,.35);
+border-radius:22px;
+padding:25px;
+backdrop-filter:blur(15px);
+box-shadow:0 0 40px rgba(0,175,255,.15);
+}
+
+
+.title{
+font-family:'Orbitron',sans-serif;
+font-size:16px;
+font-weight:900;
+color:#FFD400;
+letter-spacing:2px;
+margin-bottom:20px;
+}
+
+
+
+input{
+width:100%;
+padding:16px;
+margin-bottom:15px;
+border-radius:14px;
+border:1px solid rgba(255,255,255,.2);
+background:#06163f;
+color:white;
+font-family:'Rajdhani';
+font-size:19px;
+font-weight:700;
+}
+
+input:focus{
+outline:none;
+border-color:#00AFFF;
+box-shadow:0 0 20px #00AFFF;
+}
+
+button{
+width:100%;
+padding:16px;
+margin-top:12px;
+border:0;
+border-radius:15px;
+cursor:pointer;
+font-family:'Orbitron';
+font-weight:900;
+letter-spacing:1px;
+transition:.3s;
+}
+
+
+
+button:hover{
+transform:translateY(-3px);
+}
+
+
+.generate{
+background:#FFD400;
+color:#06163f;
+}
+
+.copy{
+background:#00AFFF;
+color:white;
+}
+
+.reset{
+background:#ff3131;
+color:white;
+}
+
+
+textarea{
+width:100%;
+height:450px;
+resize:none;
+border-radius:15px;
+padding:18px;
+background:#020611;
+border:1px solid #00AFFF;
+color:#00ffcc;
+font-family:monospace;
+}
+
+
+.preview{
+background:#020611;
+border-radius:18px;
+padding:20px;
+min-height:350px;
+overflow:hidden;
+}
+
+
+@media(max-width:900px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
+.brand{
+font-family:'Orbitron',sans-serif;
+font-size:32px;
+font-weight:900;
+letter-spacing:12px;
+margin-top:15px;
+
+background:
+linear-gradient(
+90deg,
+#FFD400,
+#ffffff,
+#00AFFF,
+#FFD400
+);
+
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+
+text-shadow:
+0 0 20px rgba(0,175,255,.5);
+
+animation:shine 4s linear infinite;
+}
+
+
+@keyframes shine{
+
+0%{
+background-position:0%;
+}
+
+100%{
+background-position:300%;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="header">
+<h1>
+GENERATOR SCRIPT POSTINGAN WP 
+</h1>
+<p class="brand">
+Z I A T O G E L
+</p>
+</div>
+
+
+<div class="grid">
+
+
+
+<div class="card">
+<div class="title">
+⚡ INPUT DATA POSTINGAN
+</div>
+
+
+<input id="gambar" placeholder="🔗 Link Gambar">
+<input id="userid" placeholder="👤 User ID">
+<input id="game" placeholder="🎰 Nama Game">
+<input id="nominal" placeholder="💰 Total Kemenangan">
+
+<button class="generate" onclick="generate()">
+GENERATE POST
+</button>
+<button class="copy" onclick="copyScript()">
+COPY HTML SCRIPT
+</button>
+<button class="reset" onclick="resetData()">
+RESET DATA
+</button>
+</div>
+
+<div class="card">
+<div class="title">
+📄 GENERATOR HTML
+</div>
+<textarea id="hasil"></textarea>
+
+</div>
+</div>
+
+<div class="card" style="margin-top:25px">
+
+<div class="title">
+👁 CEK HASIL POSTINGAN
+</div>
+
+<div id="preview" class="preview">
+Tidak Ada Data Postingan
+</div>
+</div>
+
+</div>
+<script>
+
+let fields=[
+"gambar",
+"userid",
+"game",
+"nominal"
+];
+
+
+// LOAD DATA SAAT REFRESH
+window.onload=function(){
+fields.forEach(id=>{
+let data=localStorage.getItem(id);
+if(data){
+document.getElementById(id).value=data;
+}
+});
+
+let old=localStorage.getItem("hasil");
+if(old){
+document.getElementById("hasil").value=old;
+document.getElementById("preview").innerHTML=old;
+}
+};
+
+
+// AUTO SAVE INPUT
+fields.forEach(id=>{
+document.getElementById(id)
+.addEventListener("input",function(){
+localStorage.setItem(
+id,
+this.value
+);
+
+});
+});
+
+
+function generate(){
+
+const gambar = document.getElementById("gambar").value;
+const userid = document.getElementById("userid").value;
+const game = document.getElementById("game").value;
+const nominal = document.getElementById("nominal").value;
+
+const html = `
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- wp:image {"id":2200,"sizeSlug":"large","linkDestination":"none"} -->
+
+<figure style="
+text-align:center;
+margin:0 auto 20px;
+">
+
+<img src="${gambar}"
+style="
+display:block;
+margin:auto;
+max-width:100%;
+height:auto;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+">
+
+</figure>
+
+<!-- /wp:image -->
+
+
+<div class="wp-block-group has-background" style="
+background:linear-gradient(135deg,#071C52,#0A2D88);
+border-radius:15px;
+padding:18px;
+margin-top:18px;
+border:1px solid rgba(0,175,255,.5);
+box-shadow:0 0 25px rgba(0,175,255,.25);
+font-family:'Montserrat',sans-serif;
+color:white;
+">
+
+
+<h2 style="
+text-align:center;
+font-size:25px;
+font-weight:1000;
+letter-spacing:.8px;
+text-transform:uppercase;
+margin:0 0 15px;
+text-shadow:0 3px 8px rgba(0,0,0,.5);
+">
+
+🏆
+<span style="color:#FFD400;">
+SELAMAT KEPADA MEMBER SETIA ZIATOGEL
+</span>
+
+</h2>
+
+
+
+<div style="
+background:rgba(255,255,255,.08);
+border-radius:12px;
+padding:15px;
+border:1px solid rgba(255,255,255,.15);
+">
+
+
+<p style="
+font-size:20px;
+font-weight:700;
+line-height:1.7;
+margin:0;
+">
+
+🎉 USER ID :
+<strong style="
+color:#00AFFF;
+font-weight:900;
+">
+${userid}
+</strong>
+<br>
+
+Berhasil meraih kemenangan fantastis pada permainan
+
+<br>
+
+<strong style="
+color:#FFD400;
+font-weight:700;
+">
+${game}
+</strong>
+
+</p>
+
+<div style="
+margin:15px 0;
+padding:14px;
+border-radius:12px;
+background:rgba(0,0,0,.25);
+text-align:center;
+">
+
+<div style="
+font-size:20px;
+font-weight:700;
+color:#ddd;
+letter-spacing:1px;
+">
+💰 TOTAL KEMENANGAN
+</div>
+
+<div style="
+font-size:32px;
+font-weight:900;
+color:#22C55E;
+margin-top:5px;
+letter-spacing:1px;
+text-shadow:0 0 15px rgba(34,197,94,.6);
+">
+
+${nominal}
+
+</div>
+</div>
+
+<p style="
+font-size:20px;
+font-weight:700;
+line-height:1.7;
+margin:0;
+">
+
+✅ Withdraw telah diproses dengan sukses dan dibayarkan lunas.
+Kami mengucapkan terima kasih kepada seluruh member yang telah mempercayakan pengalaman bermainnya bersama
+
+<strong style="
+color:#FFD400;
+font-weight:700;
+">
+ZIATOGEL
+</strong>
+</p>
+
+<div style="
+margin-top:15px;
+padding-top:12px;
+border-top:1px solid rgba(255,255,255,.15);
+text-align:center;
+font-size:25px;
+font-weight:900;
+letter-spacing:.5px;
+color:#FFD400;
+">
+🔥 MAIN AMAN • MENANG NYAMAN • SALAM JP!
+
+</div>
+</div>
+</div>
+`;
+
+document.getElementById("hasil").value = html;
+document.getElementById("preview").innerHTML = html;
+localStorage.setItem("hasil", html);
+
+}
+
+
+
+function copyScript(){
+let text = document.getElementById("hasil");
+
+// cara lama yang lebih kompatibel
+text.select();
+text.setSelectionRange(0, 999999);
+
+try{
+
+document.execCommand("copy");
+alert("SCRIPT BERHASIL DI COPY");
+}
+catch(err){
+alert("GAGAL COPY, SILAHKAN COPY MANUAL");
+}
+}
+
+
+
+function resetData(){
+if(confirm("Hapus semua data?")){
+fields.forEach(id=>{
+localStorage.removeItem(id);
+document.getElementById(id).value="";
+});
+
+
+
+localStorage.removeItem("hasil");
+document.getElementById("hasil").value="";
+document.getElementById("preview").innerHTML=
+"Belum ada data";
+alert("DATA BERHASIL DI RESET");
+}
+}
+
+</script>
+
+</body>
+</html>
